@@ -4,9 +4,11 @@ const Posts = require('../posts/postDb');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    Users.insert(req.body)
-        .then(posts => {
-            res.status(200).json(posts);
+    const newUser = req.body;
+
+    Users.insert(newUser)
+        .then(user => {
+            res.status(201).json(user);
         })
         .catch(error => {
             // log error to database
@@ -50,12 +52,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Users.getById(req.query)
-        .then(posts => {
-            if (!posts) {
+    Users.getById(req.params.id)
+        .then(user => {
+            if (!user) {
                 res.status(404).json({ Error: "The user with the specified ID was not found" })
             }
-            res.status(200).json(posts);
+            res.status(200).json(user);
         })
         .catch(error => {
             // log error to database
@@ -67,7 +69,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/:id/posts', (req, res) => {
-    Users.getUserPosts(req.query)
+    Users.getUserPosts(req.params.id)
         .then(posts => {
             if (!posts) {
                 res.status(404).json({ Error: "The user with the specified ID was not found" })
