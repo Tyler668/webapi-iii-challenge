@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/:id/posts', (req, res) => {
-    Users.insert(req.body)
+    Posts.insert(req.body)
         .then(posts => {
             if (!posts) {
                 res.status(404).json({ Error: "The user with the specified ID was not found" })
@@ -91,18 +91,13 @@ router.delete('/:id', (req, res) => {
         if (!user) {
             res.status(404).json({ message: "The user with the specified ID does not exist." })
         }
-        if (user > 0) {
             res.status(200).json({ message: 'RIP user' });
-        } else {
-            res.status(404).json({ message: 'The user could not be removed' });
-        }
-
     })
     .catch(error => {
         // log error to database
         console.log(error);
         res.status(500).json({
-            message: 'Error removing the post',
+            message: 'Error removing the user',
         });
     });
 });
