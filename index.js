@@ -1,8 +1,11 @@
 // code away!
 const server = require('./server');
+require('dotenv').config();
 // const express = require('express');
 // server.use(express.json());
 
-server.listen(4444, () => {
-  console.log('\n* Server Running on http://localhost:4444 *\n');
+const port = process.env.PORT;
+
+server.listen(port, () => {
+  console.log(`\n* Server Running on http://localhost:${port} *\n`);
 });
